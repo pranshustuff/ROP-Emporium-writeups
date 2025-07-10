@@ -8,10 +8,10 @@ So I finished the "Hello World" of ROP (Return Oriented Programming) as they cal
 
 ### Step 1: What does executing `ret2win` do?
 
-![Normal execution](/Screenshots/normal.png)
+![Normal execution](Screenshots/normal.png)
 
 ####  If we enter too many character:
-![Segfault](/Screenshots/segfault.png)
+![Segfault](Screenshots/segfault.png)
 
 ---
 
@@ -19,11 +19,11 @@ So I finished the "Hello World" of ROP (Return Oriented Programming) as they cal
 
 Let's open Cutter and see what the `main` function looks like:
 
-![Main_func](/Screenshots/main.png)
+![Main_func](Screenshots/main.png)
 
 The `main` function calls a function `pwnme()`. In that function, we can see our strings and where it reads our input.
 
-![pwnme_func](/Screenshots/pwnme.png)
+![pwnme_func](Screenshots/pwnme.png)
 
 As we can see, the `edx` register (where the user input size is defined) is assigned **32 bytes**, but further down it actually **reads 56 bytes** of user input. What does this mean for us?
 
@@ -37,13 +37,15 @@ The **stack pointer (RSP)** controls which line of code the system reads and mov
 - The **base pointer (RBP)** points to the base of the current function's stack frame.
 - **8 bytes above RBP** is the **return address**, where the program will continue after the function ends (normally back to `main`).
 
-![stack](/Screenshots/stack.jpg)
+![stack](Screenshots/stack.jpg)
 
 ---
 
 ### Step 4: Exploiting the Overflow
 
 There’s a function called `ret2win()` that returns the flag. We don’t care about the 32-byte buffer or the value of `rbp`.
+
+![stack](Screenshots/ret2win.png)
 
 Our goal: **overwrite the return address** with the **address of `ret2win()`**.
 
@@ -53,8 +55,8 @@ Since the program reads **56 bytes**, and only 32 bytes are used for the buffer,
 - 8 bytes for the return address
 - (remaining 8 bytes might be ignored or reserved)
 
-![stack](/Screenshots/l32.jpg)
-![stack](/Screenshots/g32.jpg)
+![stack](Screenshots/l32.jpg)
+![stack](Screenshots/g32.jpg)
 
 
 **Input structure:**
@@ -95,8 +97,8 @@ Instead, jumping to `0x400757` starts at `mov rbp, rsp`, skipping the push and k
 Therefore, we jump to `0x400757`, and it works perfectly — returning the flag.
 
 #### With `addr` as `0x400756`
-![756](/Screenshots/756.png)
+![756](Screenshots/756.png)
 
 #### With `addr` as `0x400757`
-![stack](/Screenshots/757.png)
+![stack](Screenshots/757.png)
 
