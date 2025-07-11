@@ -154,7 +154,7 @@ The way executions happen is by sending an instruction to the RIP (Instruction P
 
 ### Before Execution
 
-- `rsp = [rbp]` (address of `pop rdi ; ret`)
+- `rsp = [rbp]`
 - `rip = ret of pwnme()`
 - `rdi = whatever` 
 
