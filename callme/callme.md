@@ -141,4 +141,8 @@ And our flag is returned
 
 ![usefulFun](Screenshots/final.png)
 
+## Links for PLT/GOT
+
+- [LiveOverflow](https://youtu.be/kUk5pw4w0h4)
+- [RazviOverflow](https://www.youtube.com/watch?v=B4-wVdQo040) : He links more resources for further learning.
 
