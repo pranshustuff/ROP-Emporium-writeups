@@ -1,4 +1,4 @@
-# ROP Emporium: badchars Writeup
+# ROP Emporium | badchars
 
 ## What are Bad Characters?
 
